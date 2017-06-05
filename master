@@ -1,0 +1,158 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+#include<ctype.h>
+int main(){
+	
+	setlocale(LC_ALL, "");
+	
+		int op = 0;
+	
+	do{
+		system("cls"); 
+		printf("\n\n\t\t ===================== MENU =====================\t\t\t\t");
+		printf("\a\n\n\t\t ################### BIBLIOTECA ###############\n\n\n\t\t\t\t");
+		fflush(stdin);
+		printf("1 - Consultar Livro\n\n\t\t\t\t");
+		printf("2 - Consultar Leitor\n\n\t\t\t\t");
+		printf("3 - Cadastrar Livro\n\n\t\t\t\t");
+		printf("4 - Cadastrar Leitor\n\n\t\t\t\t"); 
+		printf("5 - Editar Livro\n\n\t\t\t\t");
+		printf("6 - Editar Leitor\n\n\t\t\t\t");
+		printf("7 - Emprestar Livro \n\n\t\t\t\t");
+		printf("8 - Devolver Livro\n\n\t\t\t\t");
+		printf("9 - Desativar Leitor\n\n\t\t\t\t");
+		printf("10 - Desativar Livro\n\n\t\t\t\t");
+		printf("11 - Sair\n\n\t\t");
+		printf("Opcao: ");
+		scanf("%d", &op);
+		printf("\n");
+		system("cls");
+		
+		switch (op){
+			case 1: 
+				ConsultarLivro(); 
+			break;
+			case 2: 
+				ConsultarLeitor(); 
+			break;
+			case 3: 
+				CadastrarLivro(); 
+			break;
+			case 4: 
+				CadastrarLeitor(); 
+			break;
+			case 5: 
+				EditarLivro();
+			break;
+			case 6: 
+				EditarLeitor(); 
+			break;
+			case 7: 
+				EmprestarLivro(); 
+			break;
+			case 8: 
+				DevolverLivro(); 
+			break;
+			case 9: 
+				DesativarLeitor(); 
+			break;
+			case 10: 
+				DesativarLivro(); 
+			break;
+			case 11: 
+				Ex11(); 
+			break;	
+			default:
+				printf("\t\t\t\t\t\tDigite uma opção válida!!!\n");
+				system("pause");
+			break;
+		}
+	}while(op!=11);
+	
+	return 0;
+	
+}
+void ConsultarLivro(){
+	
+	printf("##########  Consultar Livro ##########\n\n");
+	
+	
+	system("pause");
+	system("cls");
+
+}
+
+void ConsultarLeitor(){
+	
+		printf("########## Consultar Leitor ##########\n\n");
+		
+		system("pause");
+		system("cls");
+	
+}
+
+void CadastrarLivro(){
+	
+	printf("########## Cadastrar Livro ##########\n\n");
+	
+	system("pause");
+	system("cls");
+}
+
+void CadastrarLeitor(){
+		
+	printf("########## Cadastrar Leitor ##########\n\n");
+
+	system("pause");
+	system("cls");
+	
+}
+
+void EditarLivro(){
+	
+	printf("########## Editar Livro ##########\n\n");
+
+	system("pause");
+	system("cls");
+}
+
+void EditarLeitor(){
+	
+	printf("########## Editar Leitor ##########\n\n");
+	
+	system("pause");
+	system("cls");
+}
+
+void EmprestarLivro(){
+	
+	printf("########## Emprestar Livro ##########");
+	
+	system("pause");
+	system("cls");
+}
+
+void DevolverLivro(){
+	
+	printf("########## Devolver Livro ##########\n\n");
+	
+	system("pause");
+	system("cls");
+}
+
+void DesativarLeitor(){
+
+	printf("\t\t\t########## Desativar Leitor ##########\n\n");
+	
+	system("pause");
+	system("cls");
+}
+
+void DesativarLivro(){
+	
+	printf("\t\t\t########## Desativar Livro ##########\n\n");
+	
+	system("pause");
+	system("cls");
+}
