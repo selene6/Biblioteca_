@@ -15,11 +15,21 @@ struct Leitor {
 	char endereco[50];
 };
 
+struct Emprestimo {
+	int id;
+	struct Leitor leitor;
+	struct Livro livro;
+};
+
+
 struct Leitor leitores[100];
 int qtdeLeitores = 0;
 
 struct Livro livros[100];
 int qdteLivros = 0;
+
+struct Emprestimo emprestimos[100];
+int qdteEmprestimos = 0;
 
 int main(){
 	
@@ -42,7 +52,8 @@ int main(){
 		printf("8 - Devolver Livro\n\n\t\t\t\t");
 		printf("9 - Desativar Leitor\n\n\t\t\t\t");
 		printf("10 - Desativar Livro\n\n\t\t\t\t");
-		printf("11 - Sair\n\n\t\t");
+		printf("11 - Consultar Emprestimos\n\n\t\t\t\t");
+		printf("12 - Sair\n\n\t\t");
 		printf("Opcao: ");
 		scanf("%d", &op);
 		printf("\n");
@@ -79,15 +90,18 @@ int main(){
 			case 10: 
 				desativarLivro(); 
 			break;
-			case 11: 
-				op=11;
+			case 11:
+				consultarEmprestimos();
+				break;
+			case 12: 
+				op=12;
 			break;
 			default:
-				printf("\t\t\t\t\t\tDigite uma op玢o v醠ida!!!\n");
+				printf("\t\t\t\t\t\tDigite uma op莽茫o v谩lida!!!\n");
 				system("pause");
 			break;
 		}
-	}while(op!=11);
+	}while(op!=12);
 	
 	return 0;
 	
@@ -99,13 +113,12 @@ void consultarLivro(){
 	
 	int i =0;
 	for (i = 0; i < qdteLivros; i++) {
-		printf("\nC骴igo: %d",livros[i].id);
+		printf("\nC贸digo: %d",livros[i].id);
 		printf("\nNome: %s",livros[i].nome);
 		
 		printf("\n\n#######################################\n\n");
 	}
-	
-	
+		
 	system("pause");
 	system("cls");
 
@@ -113,20 +126,20 @@ void consultarLivro(){
 
 void consultarLeitor(){
 	
-		printf("########## Consultar Leitor ##########\n\n");
+	printf("########## Consultar Leitor ##########\n\n");
 		
 	int i =0;
 	for (i = 0; i < qtdeLeitores; i++) {
-		printf("\nC骴igo: %d",leitores[i].id);
+		printf("\nC贸digo: %d",leitores[i].id);
 		printf("\nNome: %s",leitores[i].nome);
 		printf("\nRG: %d",leitores[i].rg);
-		printf("\nEndere鏾: %s",leitores[i].endereco);
+		printf("\nEndere莽o: %s",leitores[i].endereco);
 		
 		printf("\n\n#######################################\n\n");	
 	}
 
-		system("pause");
-		system("cls");
+	system("pause");
+	system("cls");
 	
 }
 
@@ -134,11 +147,13 @@ void cadastrarLivro(){
 	
 	printf("########## Cadastrar Livro ##########\n\n");
 	
-	printf("\nC骴igo: ");
+	printf("\nC贸digo: ");
 	scanf("%d",&livros[qdteLivros].id);
 	
+	fflush(stdin);
 	printf("\nNome: ");
-	scanf("%s",&livros[qdteLivros].nome);
+	scanf("%[^\n]s",&livros[qdteLivros].nome);
+	setbuf(stdin, NULL); 
 	
 	qdteLivros++;
 	
@@ -151,19 +166,21 @@ void cadastrarLeitor(){
 		
 	printf("########## Cadastrar Leitor ##########\n\n");
 
-	printf("\nC骴igo: ");
+	printf("\nC贸digo: ");
 	scanf("%d",&leitores[qtdeLeitores].id);
 	
 	fflush(stdin);
 	printf("\nNome: ");
-	scanf("%s",&leitores[qtdeLeitores].nome);
+	scanf("%[^\n]s",&leitores[qtdeLeitores].nome);
+	setbuf(stdin, NULL); 
 	
 	fflush(stdin);
 	printf("\nRG: ");
 	scanf("%d",&leitores[qtdeLeitores].rg);
 	
 	printf("\nEndereco: ");
-	scanf("%s",&leitores[qtdeLeitores].endereco);
+	scanf("%[^\n]s",&leitores[qtdeLeitores].endereco);
+	setbuf(stdin, NULL); 
 
 	qtdeLeitores++;
 	
@@ -178,7 +195,7 @@ void editarLivro(){
 
 	int codigo = 0;
 	int achou = -1;
-	printf("\nDigite o c骴igo do livro: ");
+	printf("\nDigite o c贸digo do livro: ");
 	scanf("%d",&codigo);
 
 	int i =0;
@@ -189,15 +206,16 @@ void editarLivro(){
 	}
 	
 	if (achou == -1) {
-		printf("\nLivro n鉶 encontrado!");
+		printf("\nLivro n茫o encontrado!");
 	} else {
 		printf("\nDados do livro encontrado:\n");
-		printf("\nC骴igo: %d",livros[achou].id);
+		printf("\nC贸digo: %d",livros[achou].id);
 		printf("\nNome: %s",livros[achou].nome);
 	
 		printf("\n\nDigite os dados a serem alterados:");
 		printf("\n\nNome: ",livros[achou].nome);
-		scanf("%s",&livros[achou].nome);	
+		scanf("%[^\n]s",&livros[achou].nome);	
+		setbuf(stdin, NULL); 
 		
 	}
 
@@ -212,8 +230,9 @@ void editarLeitor(){
 	
 	int codigo = 0;
 	int achou = -1;
-	printf("\nDigite o c骴igo do Leitor: ");
+	printf("\nDigite o c贸digo do Leitor: ");
 	scanf("%d",&codigo);
+	
 
 	int i =0;
 	for (i = 0; i < qtdeLeitores; i++) {
@@ -223,20 +242,29 @@ void editarLeitor(){
 	}
 	
 	if (achou == -1) {
-		printf("\nLeitor n鉶 encontrado!");
+		printf("\nLeitor n茫o encontrado!");
 	} else {
-		printf("\nDados do Leitor n鉶 encontrado:\n");
-		printf("\nC骴igo: %d",leitores[achou].id);
+		printf("\nDados do Leitor encontrado:\n");
+		printf("\nC贸digo: %d",leitores[achou].id);
 		printf("\nNome: %s",leitores[achou].nome);
+		printf("\nRg: %d",leitores[achou].rg);
+		printf("\nEndere莽o: %[^\n]s",leitores[achou].endereco);
 	
 		printf("\n\nDigite os dados a serem alterados:");
 		printf("\n\nNome: ",leitores[achou].nome);
-		scanf("%s",&leitores[achou].nome);	
+		scanf("%[^\n]s",&leitores[achou].nome);	
+		setbuf(stdin, NULL); 
 		
+		fflush(stdin);
+		printf("\nRG: ");
+		scanf("%d",&leitores[achou].rg);
+	
+		printf("\nEndereco: ");
+		scanf("%[^\n]s",&leitores[achou].endereco);
+		setbuf(stdin, NULL); 
 	}
 
 	printf("\n\n ");
-
 	system("pause");
 	system("cls");
 }
@@ -244,6 +272,54 @@ void editarLeitor(){
 void emprestarLivro(){
 	
 	printf("########## Emprestar Livro ##########");
+	
+	int codigo = 0;
+	int achouLeitor = -1;
+	printf("\nDigite o c贸digo do Leitor: ");
+	scanf("%d",&codigo);	
+
+	int i =0;
+	for (i = 0; i < qtdeLeitores; i++) {
+		if (codigo == leitores[i].id) {
+			achouLeitor = i;			
+		}
+	}
+	
+	if (achouLeitor == -1) {
+		printf("\nLeitor n茫o encontrado!");
+		return;
+	} else {
+		printf("\nDados do Leitor encontrado:\n");
+		printf("\nC贸digo: %d",leitores[achouLeitor].id);
+		printf("\nNome: %s",leitores[achouLeitor].nome);
+		printf("\nRg: %d",leitores[achouLeitor].rg);
+		printf("\nEndere莽o: %[^\n]s",leitores[achouLeitor].endereco);	
+	
+	}
+	
+	int achouLivro = -1;
+	printf("\nDigite o c贸digo do livro: ");
+	scanf("%d",&codigo);
+	
+	for (i = 0; i < qdteLivros; i++) {
+		if (codigo == livros[i].id) {
+			achouLivro = i;			
+		}
+	}
+	
+	if (achouLivro == -1) {
+		printf("\nLivro n茫o encontrado!");
+	} else {
+		printf("\nDados do livro encontrado:\n");
+		printf("\nC贸digo: %d",livros[achouLivro].id);
+		printf("\nNome: %s",livros[achouLivro].nome);
+	}
+
+	emprestimos[qdteEmprestimos].id = qdteEmprestimos;
+	emprestimos[qdteEmprestimos].leitor = leitores[achouLeitor];
+	emprestimos[qdteEmprestimos].livro = livros[achouLivro];
+
+	qdteEmprestimos++;
 	
 	system("pause");
 	system("cls");
@@ -273,4 +349,20 @@ void desativarLivro(){
 	system("cls");
 }
 
+void consultarEmprestimos(){
+	
+	printf("########## Consultar Empr茅stimos ##########\n\n");
+		
+	int i =0;
+	for (i = 0; i < qdteEmprestimos; i++) {
+		printf("\nC贸digo: %d",emprestimos[i].id);
+		printf("\nLeitor: %s",emprestimos[i].leitor.nome);
+		printf("\nLivro: %s",emprestimos[i].livro.nome);
+				
+		printf("\n\n#######################################\n\n");	
+	}
+
+	system("pause");
+	system("cls");
+}
 
